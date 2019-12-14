@@ -5,10 +5,15 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "rtn.h"
 #include "check.h"
 #include "map.h"
 #include "transform.h"
+#include "dump.h"
+#include "wrap.h"
+
+int yyparse();
 
 static char *start_symbol = NULL; /* to override the default start symbol */
 pRule rule_base;

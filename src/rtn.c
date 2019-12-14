@@ -1,6 +1,8 @@
 /* rtn.c  acb  8-9-1994 */
 
 #include <stdlib.h>
+#include <string.h>
+#include "dump.h"
 #include "rtn.h"
 #include "strfunc.h"
 

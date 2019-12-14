@@ -1,9 +1,9 @@
-/*  util.h  acb  65 Afm 3161
+/*  wrap.h  acb  65 Afm 3161
  *  Utility routines used in the Dada Engine
  */
 
-#ifndef __DADA_UTIL_H
-#define __DADA_UTIL_H
+#ifndef __WRAP_H
+#define __WRAP_H
 
 /* print_wrapped()  print text wrapped to a certain width to a file
  *  arguments:      file object to output to
