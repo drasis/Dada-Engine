@@ -1,0 +1,1755 @@
+Terminals which are not used
+
+   T_COND
+   T_EXISTS
+   T_NUM
+
+
+State 80 conflicts: 3 shift/reduce
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: rules
+
+    2 rules: /* empty */
+    3      | rules rule
+    4      | rules mapping
+    5      | rules transformation
+
+    6 rule: T_IDENT ':' options ';'
+    7     | T_RESOURCE T_IDENT ':' options ';'
+    8     | T_IDENT '(' params ')' ':' options ';'
+
+    9 transformation: T_XFORM T_IDENT ':' transopts ';'
+
+   10 transopts: transopt transopts
+   11          | transopt
+
+   12 transopt: T_LITERAL ':' transcmd
+
+   13 transcmd: transaddr T_IDENT translist ';'
+
+   14 transaddr: T_INTEGER
+   15          | T_INTEGER ',' T_INTEGER
+   16          | /* empty */
+
+   17 translist: T_LITERAL translist
+   18          | /* empty */
+
+   19 mapping: T_IDENT ':' mapopts ';'
+
+   20 mapopts: mapopts mapopt
+   21        | mapopt
+
+   22 mapopt: T_LITERAL 'M' mapaction
+   23       | T_LITERAL 'R' T_LITERAL
+
+   24 mapaction: T_LITERAL
+   25          | T_LITERAL '/' T_LITERAL
+
+   26 params: params T_IDENT
+   27       | T_IDENT
+
+   28 options: option '|' options
+   29        | option
+
+   30 option: atoms
+
+   31 atoms: atoms atom
+   32      | atom
+
+   33 atom: atom2
+   34     | atom '>' T_IDENT
+   35     | T_DEREF atom
+   36     | T_IDENT 'V' atom
+   37     | T_IDENT '=' atom
+   38     | '$' T_IDENT
+   39     | '{' imperatives '}'
+   40     | '?' atom
+   41     | atom '*'
+   42     | atom '+'
+   43     | '[' options ']'
+   44     | T_REPEAT '(' atom ',' T_INTEGER ')'
+   45     | T_REPEAT '(' atom ',' T_IDENT ')'
+   46     | T_UNIQUE atom
+   47     | T_ENUM atom
+   48     | T_PICK '(' T_INTEGER ',' atom ')'
+
+   49 atom2: T_LITERAL
+   50      | T_IDENT
+   51      | T_IDENT '(' atoms ')'
+
+   52 imperatives: /* empty */
+   53            | imperative
+   54            | imperatives ';' imperative
+
+   55 imperative: T_IDENT '=' expr
+   56           | '=' expr
+
+   57 expr: T_INTEGER
+   58     | T_LITERAL
+   59     | T_IDENT
+   60     | T_DEREF T_IDENT
+   61     | '(' expr ')'
+   62     | expr '+' expr
+   63     | expr '-' expr
+   64     | expr '*' expr
+   65     | expr '/' expr
+   66     | expr '%' expr
+   67     | expr T_ELLIPSIS expr
+   68     | expr 'V' expr
+   69     | expr 'G' expr
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'$' (36) 38
+'%' (37) 66
+'(' (40) 8 44 45 48 51 61
+')' (41) 8 44 45 48 51 61
+'*' (42) 41 64
+'+' (43) 42 62
+',' (44) 15 44 45 48
+'-' (45) 63
+'/' (47) 25 65
+':' (58) 6 7 8 9 12 19
+';' (59) 6 7 8 9 13 19 54
+'=' (61) 37 55 56
+'>' (62) 34
+'?' (63) 40
+'G' (71) 69
+'M' (77) 22
+'R' (82) 23
+'V' (86) 36 68
+'[' (91) 43
+']' (93) 43
+'{' (123) 39
+'|' (124) 28
+'}' (125) 39
+error (256)
+T_XFORM (258) 9
+T_COND (259)
+T_EXISTS (260)
+T_NUM (261)
+T_REPEAT (262) 44 45
+T_UNIQUE (263) 46
+T_ENUM (264) 47
+T_PICK (265) 48
+T_RESOURCE (266) 7
+T_LITERAL (267) 12 17 22 23 24 25 49 58
+T_IDENT (268) 6 7 8 9 13 19 26 27 34 36 37 38 45 50 51 55 59 60
+T_INTEGER (269) 14 15 44 48 57
+T_DEREF (270) 35 60
+T_ELLIPSIS (271) 67
+
+
+Nonterminals, with rules where they appear
+
+$accept (40)
+    on left: 0
+input (41)
+    on left: 1, on right: 0
+rules (42)
+    on left: 2 3 4 5, on right: 1 3 4 5
+rule (43)
+    on left: 6 7 8, on right: 3
+transformation (44)
+    on left: 9, on right: 5
+transopts (45)
+    on left: 10 11, on right: 9 10
+transopt (46)
+    on left: 12, on right: 10 11
+transcmd (47)
+    on left: 13, on right: 12
+transaddr (48)
+    on left: 14 15 16, on right: 13
+translist (49)
+    on left: 17 18, on right: 13 17
+mapping (50)
+    on left: 19, on right: 4
+mapopts (51)
+    on left: 20 21, on right: 19 20
+mapopt (52)
+    on left: 22 23, on right: 20 21
+mapaction (53)
+    on left: 24 25, on right: 22
+params (54)
+    on left: 26 27, on right: 8 26
+options (55)
+    on left: 28 29, on right: 6 7 8 28 43
+option (56)
+    on left: 30, on right: 28 29
+atoms (57)
+    on left: 31 32, on right: 30 31 51
+atom (58)
+    on left: 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48,
+    on right: 31 32 34 35 36 37 40 41 42 44 45 46 47 48
+atom2 (59)
+    on left: 49 50 51, on right: 33
+imperatives (60)
+    on left: 52 53 54, on right: 39 54
+imperative (61)
+    on left: 55 56, on right: 53 54
+expr (62)
+    on left: 57 58 59 60 61 62 63 64 65 66 67 68 69,
+    on right: 55 56 61 62 63 64 65 66 67 68 69
+
+
+state 0
+
+    0 $accept: . input $end
+
+    $default  reduce using rule 2 (rules)
+
+    input  go to state 1
+    rules  go to state 2
+
+
+state 1
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 3
+
+
+state 2
+
+    1 input: rules .
+    3 rules: rules . rule
+    4      | rules . mapping
+    5      | rules . transformation
+
+    T_XFORM     shift, and go to state 4
+    T_RESOURCE  shift, and go to state 5
+    T_IDENT     shift, and go to state 6
+
+    $default  reduce using rule 1 (input)
+
+    rule            go to state 7
+    transformation  go to state 8
+    mapping         go to state 9
+
+
+state 3
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+state 4
+
+    9 transformation: T_XFORM . T_IDENT ':' transopts ';'
+
+    T_IDENT  shift, and go to state 10
+
+
+state 5
+
+    7 rule: T_RESOURCE . T_IDENT ':' options ';'
+
+    T_IDENT  shift, and go to state 11
+
+
+state 6
+
+    6 rule: T_IDENT . ':' options ';'
+    8     | T_IDENT . '(' params ')' ':' options ';'
+   19 mapping: T_IDENT . ':' mapopts ';'
+
+    ':'  shift, and go to state 12
+    '('  shift, and go to state 13
+
+
+state 7
+
+    3 rules: rules rule .
+
+    $default  reduce using rule 3 (rules)
+
+
+state 8
+
+    5 rules: rules transformation .
+
+    $default  reduce using rule 5 (rules)
+
+
+state 9
+
+    4 rules: rules mapping .
+
+    $default  reduce using rule 4 (rules)
+
+
+state 10
+
+    9 transformation: T_XFORM T_IDENT . ':' transopts ';'
+
+    ':'  shift, and go to state 14
+
+
+state 11
+
+    7 rule: T_RESOURCE T_IDENT . ':' options ';'
+
+    ':'  shift, and go to state 15
+
+
+state 12
+
+    6 rule: T_IDENT ':' . options ';'
+   19 mapping: T_IDENT ':' . mapopts ';'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 20
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    mapopts  go to state 27
+    mapopt   go to state 28
+    options  go to state 29
+    option   go to state 30
+    atoms    go to state 31
+    atom     go to state 32
+    atom2    go to state 33
+
+
+state 13
+
+    8 rule: T_IDENT '(' . params ')' ':' options ';'
+
+    T_IDENT  shift, and go to state 34
+
+    params  go to state 35
+
+
+state 14
+
+    9 transformation: T_XFORM T_IDENT ':' . transopts ';'
+
+    T_LITERAL  shift, and go to state 36
+
+    transopts  go to state 37
+    transopt   go to state 38
+
+
+state 15
+
+    7 rule: T_RESOURCE T_IDENT ':' . options ';'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    options  go to state 40
+    option   go to state 30
+    atoms    go to state 31
+    atom     go to state 32
+    atom2    go to state 33
+
+
+state 16
+
+   44 atom: T_REPEAT . '(' atom ',' T_INTEGER ')'
+   45     | T_REPEAT . '(' atom ',' T_IDENT ')'
+
+    '('  shift, and go to state 41
+
+
+state 17
+
+   46 atom: T_UNIQUE . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 42
+    atom2  go to state 33
+
+
+state 18
+
+   47 atom: T_ENUM . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 43
+    atom2  go to state 33
+
+
+state 19
+
+   48 atom: T_PICK . '(' T_INTEGER ',' atom ')'
+
+    '('  shift, and go to state 44
+
+
+state 20
+
+   22 mapopt: T_LITERAL . 'M' mapaction
+   23       | T_LITERAL . 'R' T_LITERAL
+   49 atom2: T_LITERAL .
+
+    'M'  shift, and go to state 45
+    'R'  shift, and go to state 46
+
+    $default  reduce using rule 49 (atom2)
+
+
+state 21
+
+   36 atom: T_IDENT . 'V' atom
+   37     | T_IDENT . '=' atom
+   50 atom2: T_IDENT .
+   51      | T_IDENT . '(' atoms ')'
+
+    'V'  shift, and go to state 47
+    '('  shift, and go to state 48
+    '='  shift, and go to state 49
+
+    $default  reduce using rule 50 (atom2)
+
+
+state 22
+
+   40 atom: '?' . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 50
+    atom2  go to state 33
+
+
+state 23
+
+   35 atom: T_DEREF . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 51
+    atom2  go to state 33
+
+
+state 24
+
+   38 atom: '$' . T_IDENT
+
+    T_IDENT  shift, and go to state 52
+
+
+state 25
+
+   39 atom: '{' . imperatives '}'
+
+    T_IDENT  shift, and go to state 53
+    '='      shift, and go to state 54
+
+    $default  reduce using rule 52 (imperatives)
+
+    imperatives  go to state 55
+    imperative   go to state 56
+
+
+state 26
+
+   43 atom: '[' . options ']'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    options  go to state 57
+    option   go to state 30
+    atoms    go to state 31
+    atom     go to state 32
+    atom2    go to state 33
+
+
+state 27
+
+   19 mapping: T_IDENT ':' mapopts . ';'
+   20 mapopts: mapopts . mapopt
+
+    T_LITERAL  shift, and go to state 58
+    ';'        shift, and go to state 59
+
+    mapopt  go to state 60
+
+
+state 28
+
+   21 mapopts: mapopt .
+
+    $default  reduce using rule 21 (mapopts)
+
+
+state 29
+
+    6 rule: T_IDENT ':' options . ';'
+
+    ';'  shift, and go to state 61
+
+
+state 30
+
+   28 options: option . '|' options
+   29        | option .
+
+    '|'  shift, and go to state 62
+
+    $default  reduce using rule 29 (options)
+
+
+state 31
+
+   30 option: atoms .
+   31 atoms: atoms . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    $default  reduce using rule 30 (option)
+
+    atom   go to state 63
+    atom2  go to state 33
+
+
+state 32
+
+   32 atoms: atom .
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    $default  reduce using rule 32 (atoms)
+
+
+state 33
+
+   33 atom: atom2 .
+
+    $default  reduce using rule 33 (atom)
+
+
+state 34
+
+   27 params: T_IDENT .
+
+    $default  reduce using rule 27 (params)
+
+
+state 35
+
+    8 rule: T_IDENT '(' params . ')' ':' options ';'
+   26 params: params . T_IDENT
+
+    T_IDENT  shift, and go to state 67
+    ')'      shift, and go to state 68
+
+
+state 36
+
+   12 transopt: T_LITERAL . ':' transcmd
+
+    ':'  shift, and go to state 69
+
+
+state 37
+
+    9 transformation: T_XFORM T_IDENT ':' transopts . ';'
+
+    ';'  shift, and go to state 70
+
+
+state 38
+
+   10 transopts: transopt . transopts
+   11          | transopt .
+
+    T_LITERAL  shift, and go to state 36
+
+    $default  reduce using rule 11 (transopts)
+
+    transopts  go to state 71
+    transopt   go to state 38
+
+
+state 39
+
+   49 atom2: T_LITERAL .
+
+    $default  reduce using rule 49 (atom2)
+
+
+state 40
+
+    7 rule: T_RESOURCE T_IDENT ':' options . ';'
+
+    ';'  shift, and go to state 72
+
+
+state 41
+
+   44 atom: T_REPEAT '(' . atom ',' T_INTEGER ')'
+   45     | T_REPEAT '(' . atom ',' T_IDENT ')'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 73
+    atom2  go to state 33
+
+
+state 42
+
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+   46     | T_UNIQUE atom .
+
+    $default  reduce using rule 46 (atom)
+
+
+state 43
+
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+   47     | T_ENUM atom .
+
+    $default  reduce using rule 47 (atom)
+
+
+state 44
+
+   48 atom: T_PICK '(' . T_INTEGER ',' atom ')'
+
+    T_INTEGER  shift, and go to state 74
+
+
+state 45
+
+   22 mapopt: T_LITERAL 'M' . mapaction
+
+    T_LITERAL  shift, and go to state 75
+
+    mapaction  go to state 76
+
+
+state 46
+
+   23 mapopt: T_LITERAL 'R' . T_LITERAL
+
+    T_LITERAL  shift, and go to state 77
+
+
+state 47
+
+   36 atom: T_IDENT 'V' . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 78
+    atom2  go to state 33
+
+
+state 48
+
+   51 atom2: T_IDENT '(' . atoms ')'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atoms  go to state 79
+    atom   go to state 32
+    atom2  go to state 33
+
+
+state 49
+
+   37 atom: T_IDENT '=' . atom
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 80
+    atom2  go to state 33
+
+
+state 50
+
+   34 atom: atom . '>' T_IDENT
+   40     | '?' atom .
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    $default  reduce using rule 40 (atom)
+
+
+state 51
+
+   34 atom: atom . '>' T_IDENT
+   35     | T_DEREF atom .
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    $default  reduce using rule 35 (atom)
+
+
+state 52
+
+   38 atom: '$' T_IDENT .
+
+    $default  reduce using rule 38 (atom)
+
+
+state 53
+
+   55 imperative: T_IDENT . '=' expr
+
+    '='  shift, and go to state 81
+
+
+state 54
+
+   56 imperative: '=' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 87
+
+
+state 55
+
+   39 atom: '{' imperatives . '}'
+   54 imperatives: imperatives . ';' imperative
+
+    ';'  shift, and go to state 88
+    '}'  shift, and go to state 89
+
+
+state 56
+
+   53 imperatives: imperative .
+
+    $default  reduce using rule 53 (imperatives)
+
+
+state 57
+
+   43 atom: '[' options . ']'
+
+    ']'  shift, and go to state 90
+
+
+state 58
+
+   22 mapopt: T_LITERAL . 'M' mapaction
+   23       | T_LITERAL . 'R' T_LITERAL
+
+    'M'  shift, and go to state 45
+    'R'  shift, and go to state 46
+
+
+state 59
+
+   19 mapping: T_IDENT ':' mapopts ';' .
+
+    $default  reduce using rule 19 (mapping)
+
+
+state 60
+
+   20 mapopts: mapopts mapopt .
+
+    $default  reduce using rule 20 (mapopts)
+
+
+state 61
+
+    6 rule: T_IDENT ':' options ';' .
+
+    $default  reduce using rule 6 (rule)
+
+
+state 62
+
+   28 options: option '|' . options
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    options  go to state 91
+    option   go to state 30
+    atoms    go to state 31
+    atom     go to state 32
+    atom2    go to state 33
+
+
+state 63
+
+   31 atoms: atoms atom .
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    $default  reduce using rule 31 (atoms)
+
+
+state 64
+
+   34 atom: atom '>' . T_IDENT
+
+    T_IDENT  shift, and go to state 92
+
+
+state 65
+
+   42 atom: atom '+' .
+
+    $default  reduce using rule 42 (atom)
+
+
+state 66
+
+   41 atom: atom '*' .
+
+    $default  reduce using rule 41 (atom)
+
+
+state 67
+
+   26 params: params T_IDENT .
+
+    $default  reduce using rule 26 (params)
+
+
+state 68
+
+    8 rule: T_IDENT '(' params ')' . ':' options ';'
+
+    ':'  shift, and go to state 93
+
+
+state 69
+
+   12 transopt: T_LITERAL ':' . transcmd
+
+    T_INTEGER  shift, and go to state 94
+
+    $default  reduce using rule 16 (transaddr)
+
+    transcmd   go to state 95
+    transaddr  go to state 96
+
+
+state 70
+
+    9 transformation: T_XFORM T_IDENT ':' transopts ';' .
+
+    $default  reduce using rule 9 (transformation)
+
+
+state 71
+
+   10 transopts: transopt transopts .
+
+    $default  reduce using rule 10 (transopts)
+
+
+state 72
+
+    7 rule: T_RESOURCE T_IDENT ':' options ';' .
+
+    $default  reduce using rule 7 (rule)
+
+
+state 73
+
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+   44     | T_REPEAT '(' atom . ',' T_INTEGER ')'
+   45     | T_REPEAT '(' atom . ',' T_IDENT ')'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+    ','  shift, and go to state 97
+
+
+state 74
+
+   48 atom: T_PICK '(' T_INTEGER . ',' atom ')'
+
+    ','  shift, and go to state 98
+
+
+state 75
+
+   24 mapaction: T_LITERAL .
+   25          | T_LITERAL . '/' T_LITERAL
+
+    '/'  shift, and go to state 99
+
+    $default  reduce using rule 24 (mapaction)
+
+
+state 76
+
+   22 mapopt: T_LITERAL 'M' mapaction .
+
+    $default  reduce using rule 22 (mapopt)
+
+
+state 77
+
+   23 mapopt: T_LITERAL 'R' T_LITERAL .
+
+    $default  reduce using rule 23 (mapopt)
+
+
+state 78
+
+   34 atom: atom . '>' T_IDENT
+   36     | T_IDENT 'V' atom .
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    $default  reduce using rule 36 (atom)
+
+
+state 79
+
+   31 atoms: atoms . atom
+   51 atom2: T_IDENT '(' atoms . ')'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    ')'        shift, and go to state 100
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 63
+    atom2  go to state 33
+
+
+state 80
+
+   34 atom: atom . '>' T_IDENT
+   37     | T_IDENT '=' atom .
+   41     | atom . '*'
+   42     | atom . '+'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+
+    '>'       [reduce using rule 37 (atom)]
+    '+'       [reduce using rule 37 (atom)]
+    '*'       [reduce using rule 37 (atom)]
+    $default  reduce using rule 37 (atom)
+
+
+state 81
+
+   55 imperative: T_IDENT '=' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 101
+
+
+state 82
+
+   58 expr: T_LITERAL .
+
+    $default  reduce using rule 58 (expr)
+
+
+state 83
+
+   59 expr: T_IDENT .
+
+    $default  reduce using rule 59 (expr)
+
+
+state 84
+
+   57 expr: T_INTEGER .
+
+    $default  reduce using rule 57 (expr)
+
+
+state 85
+
+   60 expr: T_DEREF . T_IDENT
+
+    T_IDENT  shift, and go to state 102
+
+
+state 86
+
+   61 expr: '(' . expr ')'
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 103
+
+
+state 87
+
+   56 imperative: '=' expr .
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    T_ELLIPSIS  shift, and go to state 104
+    'V'         shift, and go to state 105
+    'G'         shift, and go to state 106
+    '-'         shift, and go to state 107
+    '+'         shift, and go to state 108
+    '*'         shift, and go to state 109
+    '/'         shift, and go to state 110
+    '%'         shift, and go to state 111
+
+    $default  reduce using rule 56 (imperative)
+
+
+state 88
+
+   54 imperatives: imperatives ';' . imperative
+
+    T_IDENT  shift, and go to state 53
+    '='      shift, and go to state 54
+
+    imperative  go to state 112
+
+
+state 89
+
+   39 atom: '{' imperatives '}' .
+
+    $default  reduce using rule 39 (atom)
+
+
+state 90
+
+   43 atom: '[' options ']' .
+
+    $default  reduce using rule 43 (atom)
+
+
+state 91
+
+   28 options: option '|' options .
+
+    $default  reduce using rule 28 (options)
+
+
+state 92
+
+   34 atom: atom '>' T_IDENT .
+
+    $default  reduce using rule 34 (atom)
+
+
+state 93
+
+    8 rule: T_IDENT '(' params ')' ':' . options ';'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    options  go to state 113
+    option   go to state 30
+    atoms    go to state 31
+    atom     go to state 32
+    atom2    go to state 33
+
+
+state 94
+
+   14 transaddr: T_INTEGER .
+   15          | T_INTEGER . ',' T_INTEGER
+
+    ','  shift, and go to state 114
+
+    $default  reduce using rule 14 (transaddr)
+
+
+state 95
+
+   12 transopt: T_LITERAL ':' transcmd .
+
+    $default  reduce using rule 12 (transopt)
+
+
+state 96
+
+   13 transcmd: transaddr . T_IDENT translist ';'
+
+    T_IDENT  shift, and go to state 115
+
+
+state 97
+
+   44 atom: T_REPEAT '(' atom ',' . T_INTEGER ')'
+   45     | T_REPEAT '(' atom ',' . T_IDENT ')'
+
+    T_IDENT    shift, and go to state 116
+    T_INTEGER  shift, and go to state 117
+
+
+state 98
+
+   48 atom: T_PICK '(' T_INTEGER ',' . atom ')'
+
+    T_REPEAT   shift, and go to state 16
+    T_UNIQUE   shift, and go to state 17
+    T_ENUM     shift, and go to state 18
+    T_PICK     shift, and go to state 19
+    T_LITERAL  shift, and go to state 39
+    T_IDENT    shift, and go to state 21
+    '?'        shift, and go to state 22
+    T_DEREF    shift, and go to state 23
+    '$'        shift, and go to state 24
+    '{'        shift, and go to state 25
+    '['        shift, and go to state 26
+
+    atom   go to state 118
+    atom2  go to state 33
+
+
+state 99
+
+   25 mapaction: T_LITERAL '/' . T_LITERAL
+
+    T_LITERAL  shift, and go to state 119
+
+
+state 100
+
+   51 atom2: T_IDENT '(' atoms ')' .
+
+    $default  reduce using rule 51 (atom2)
+
+
+state 101
+
+   55 imperative: T_IDENT '=' expr .
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    T_ELLIPSIS  shift, and go to state 104
+    'V'         shift, and go to state 105
+    'G'         shift, and go to state 106
+    '-'         shift, and go to state 107
+    '+'         shift, and go to state 108
+    '*'         shift, and go to state 109
+    '/'         shift, and go to state 110
+    '%'         shift, and go to state 111
+
+    $default  reduce using rule 55 (imperative)
+
+
+state 102
+
+   60 expr: T_DEREF T_IDENT .
+
+    $default  reduce using rule 60 (expr)
+
+
+state 103
+
+   61 expr: '(' expr . ')'
+   62     | expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    T_ELLIPSIS  shift, and go to state 104
+    'V'         shift, and go to state 105
+    'G'         shift, and go to state 106
+    '-'         shift, and go to state 107
+    '+'         shift, and go to state 108
+    '*'         shift, and go to state 109
+    '/'         shift, and go to state 110
+    '%'         shift, and go to state 111
+    ')'         shift, and go to state 120
+
+
+state 104
+
+   67 expr: expr T_ELLIPSIS . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 121
+
+
+state 105
+
+   68 expr: expr 'V' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 122
+
+
+state 106
+
+   69 expr: expr 'G' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 123
+
+
+state 107
+
+   63 expr: expr '-' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 124
+
+
+state 108
+
+   62 expr: expr '+' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 125
+
+
+state 109
+
+   64 expr: expr '*' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 126
+
+
+state 110
+
+   65 expr: expr '/' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 127
+
+
+state 111
+
+   66 expr: expr '%' . expr
+
+    T_LITERAL  shift, and go to state 82
+    T_IDENT    shift, and go to state 83
+    T_INTEGER  shift, and go to state 84
+    T_DEREF    shift, and go to state 85
+    '('        shift, and go to state 86
+
+    expr  go to state 128
+
+
+state 112
+
+   54 imperatives: imperatives ';' imperative .
+
+    $default  reduce using rule 54 (imperatives)
+
+
+state 113
+
+    8 rule: T_IDENT '(' params ')' ':' options . ';'
+
+    ';'  shift, and go to state 129
+
+
+state 114
+
+   15 transaddr: T_INTEGER ',' . T_INTEGER
+
+    T_INTEGER  shift, and go to state 130
+
+
+state 115
+
+   13 transcmd: transaddr T_IDENT . translist ';'
+
+    T_LITERAL  shift, and go to state 131
+
+    $default  reduce using rule 18 (translist)
+
+    translist  go to state 132
+
+
+state 116
+
+   45 atom: T_REPEAT '(' atom ',' T_IDENT . ')'
+
+    ')'  shift, and go to state 133
+
+
+state 117
+
+   44 atom: T_REPEAT '(' atom ',' T_INTEGER . ')'
+
+    ')'  shift, and go to state 134
+
+
+state 118
+
+   34 atom: atom . '>' T_IDENT
+   41     | atom . '*'
+   42     | atom . '+'
+   48     | T_PICK '(' T_INTEGER ',' atom . ')'
+
+    '>'  shift, and go to state 64
+    '+'  shift, and go to state 65
+    '*'  shift, and go to state 66
+    ')'  shift, and go to state 135
+
+
+state 119
+
+   25 mapaction: T_LITERAL '/' T_LITERAL .
+
+    $default  reduce using rule 25 (mapaction)
+
+
+state 120
+
+   61 expr: '(' expr ')' .
+
+    $default  reduce using rule 61 (expr)
+
+
+state 121
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   67     | expr T_ELLIPSIS expr .
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    'V'  shift, and go to state 105
+    'G'  shift, and go to state 106
+    '-'  shift, and go to state 107
+    '+'  shift, and go to state 108
+    '*'  shift, and go to state 109
+    '/'  shift, and go to state 110
+    '%'  shift, and go to state 111
+
+    $default  reduce using rule 67 (expr)
+
+
+state 122
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   68     | expr 'V' expr .
+   69     | expr . 'G' expr
+
+    '-'  shift, and go to state 107
+    '+'  shift, and go to state 108
+    '*'  shift, and go to state 109
+    '/'  shift, and go to state 110
+    '%'  shift, and go to state 111
+
+    $default  reduce using rule 68 (expr)
+
+
+state 123
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+   69     | expr 'G' expr .
+
+    '-'  shift, and go to state 107
+    '+'  shift, and go to state 108
+    '*'  shift, and go to state 109
+    '/'  shift, and go to state 110
+    '%'  shift, and go to state 111
+
+    $default  reduce using rule 69 (expr)
+
+
+state 124
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   63     | expr '-' expr .
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    '*'  shift, and go to state 109
+    '/'  shift, and go to state 110
+    '%'  shift, and go to state 111
+
+    $default  reduce using rule 63 (expr)
+
+
+state 125
+
+   62 expr: expr . '+' expr
+   62     | expr '+' expr .
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    '*'  shift, and go to state 109
+    '/'  shift, and go to state 110
+    '%'  shift, and go to state 111
+
+    $default  reduce using rule 62 (expr)
+
+
+state 126
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   64     | expr '*' expr .
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    $default  reduce using rule 64 (expr)
+
+
+state 127
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   65     | expr '/' expr .
+   66     | expr . '%' expr
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    $default  reduce using rule 65 (expr)
+
+
+state 128
+
+   62 expr: expr . '+' expr
+   63     | expr . '-' expr
+   64     | expr . '*' expr
+   65     | expr . '/' expr
+   66     | expr . '%' expr
+   66     | expr '%' expr .
+   67     | expr . T_ELLIPSIS expr
+   68     | expr . 'V' expr
+   69     | expr . 'G' expr
+
+    $default  reduce using rule 66 (expr)
+
+
+state 129
+
+    8 rule: T_IDENT '(' params ')' ':' options ';' .
+
+    $default  reduce using rule 8 (rule)
+
+
+state 130
+
+   15 transaddr: T_INTEGER ',' T_INTEGER .
+
+    $default  reduce using rule 15 (transaddr)
+
+
+state 131
+
+   17 translist: T_LITERAL . translist
+
+    T_LITERAL  shift, and go to state 131
+
+    $default  reduce using rule 18 (translist)
+
+    translist  go to state 136
+
+
+state 132
+
+   13 transcmd: transaddr T_IDENT translist . ';'
+
+    ';'  shift, and go to state 137
+
+
+state 133
+
+   45 atom: T_REPEAT '(' atom ',' T_IDENT ')' .
+
+    $default  reduce using rule 45 (atom)
+
+
+state 134
+
+   44 atom: T_REPEAT '(' atom ',' T_INTEGER ')' .
+
+    $default  reduce using rule 44 (atom)
+
+
+state 135
+
+   48 atom: T_PICK '(' T_INTEGER ',' atom ')' .
+
+    $default  reduce using rule 48 (atom)
+
+
+state 136
+
+   17 translist: T_LITERAL translist .
+
+    $default  reduce using rule 17 (translist)
+
+
+state 137
+
+   13 transcmd: transaddr T_IDENT translist ';' .
+
+    $default  reduce using rule 13 (transcmd)
