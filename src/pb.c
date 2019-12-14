@@ -14,6 +14,7 @@
 #include "wrap.h"
 
 int yyparse();
+int yy_scan_string(char *);
 
 static char *start_symbol = NULL; /* to override the default start symbol */
 pRule rule_base;
@@ -62,6 +63,7 @@ int strtoseed(char *s)
     return r;
 };
 
+int
 main(int argc, char *argv[])
 {
   int i;
@@ -89,6 +91,7 @@ main(int argc, char *argv[])
       case 'v': verbose = 1; break;
       case 'w': wrapwidth = atoi(argv[++i]); break;
       case 'y': yydebug=1; break;
+      case 'f': yy_scan_string(argv[++i]); break;
       };
   };
   srandom(rseed?strtoseed(rseed):time(NULL));
