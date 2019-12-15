@@ -1,1 +1,1 @@
-A work in progress... Paired with John to get [Dada Engine](https://dev.null.org/dadaengine/manual-1.0/dada.html) to compile to Web Assembly, working on debugging making a friendly JS interface & documentation. Eta soon!
+A work in progress... Paired with John to get [Dada Engine](https://dev.null.org/dadaengine/manual-1.0/dada.html) to compile to Web Assembly, working on debugging, making a friendly JS interface & documenting. Eta soon!
