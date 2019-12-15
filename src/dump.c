@@ -6,6 +6,8 @@
 #include "rtn.h"
 #include "map.h"
 #include "transform.h"
+#include "dump.h"
+#include "machine.h"
 
 static int dump_atoms(pNode atoms);
 

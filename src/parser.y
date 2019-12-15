@@ -17,6 +17,7 @@
 #include <time.h>
 #include <stdlib.h> /* NULL */
 #include <stdio.h>
+//#include <string.h>
 #include "rtn.h"
 #include "check.h"
 #include "map.h"
@@ -37,6 +38,9 @@ pListNode transformations = NULL;
 extern int verbose;
 
 extern void use_rtn(pRule rtn);
+
+int yylex(void);
+int yyerror(char*);
 
 %}
 

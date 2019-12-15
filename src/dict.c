@@ -4,6 +4,7 @@
 
 #include "dict.h"
 #include <stdlib.h>
+#include <string.h>
 
 static struct dictnode *nnode(char *k, void *v)
 {
